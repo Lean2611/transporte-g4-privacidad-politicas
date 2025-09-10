@@ -16,7 +16,6 @@
       --brand: #e11d2e; /* rojo principal */
       --brand-600:#c21223;
       --brand-700:#98101c;
-      --accent:#ff4343;
       --link:#ff6b6b;
       --focus:#fca5a5;
       --shadow: 0 10px 30px rgba(0,0,0,.35);
@@ -102,6 +101,13 @@
       background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);
       padding: 1rem; box-shadow: var(--shadow);
     }
+
+    /* ✅ Ocultar TOC en móviles para que no tape el contenido */
+    @media (max-width: 768px){
+      nav.toc{ display:none; position: static; }
+      main{ grid-template-columns: 1fr; }
+    }
+
     nav.toc h3{margin:.25rem 0 .5rem; font-size:.95rem; color:var(--muted)}
     nav.toc a{
       display:block; padding:.35rem .5rem; border-radius:8px; text-decoration:none; color:var(--text);
@@ -273,24 +279,27 @@
     // Generar TOC dinámico
     const headings = document.querySelectorAll('.content h2');
     const toc = document.getElementById('toc-links');
-    headings.forEach(h => {
-      const id = h.parentElement.id;
-      const a = document.createElement('a');
-      a.href = '#' + id;
-      a.textContent = h.textContent;
-      toc.appendChild(a);
-    });
-    // Resaltar el item activo al hacer scroll
-    const links = Array.from(document.querySelectorAll('nav.toc a'));
-    const observer = new IntersectionObserver((entries)=>{
-      entries.forEach(entry => {
-        if(entry.isIntersecting){
-          links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + entry.target.id));
-        }
-      })
-    }, { rootMargin: '-40% 0px -55% 0px', threshold: [0, 1] });
-    document.querySelectorAll('section.card').forEach(sec => observer.observe(sec));
+    if (toc){
+      headings.forEach(h => {
+        const id = h.parentElement.id;
+        const a = document.createElement('a');
+        a.href = '#' + id;
+        a.textContent = h.textContent;
+        toc.appendChild(a);
+      });
+      // Resaltar el item activo al hacer scroll (solo si el TOC existe/está visible)
+      const links = Array.from(document.querySelectorAll('nav.toc a'));
+      if (links.length){
+        const observer = new IntersectionObserver((entries)=>{
+          entries.forEach(entry => {
+            if(entry.isIntersecting){
+              links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + entry.target.id));
+            }
+          })
+        }, { rootMargin: '-40% 0px -55% 0px', threshold: [0, 1] });
+        document.querySelectorAll('section.card').forEach(sec => observer.observe(sec));
+      }
+    }
   </script>
 </body>
 </html>
-
