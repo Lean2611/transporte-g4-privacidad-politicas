@@ -4,85 +4,293 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Política de Privacidad de Transporte G4</title>
+  <meta name="color-scheme" content="dark light">
   <style>
-    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; line-height: 1.6; margin: 0; padding: 0; color: #111; }
-    header { background: #f5f5f5; padding: 2rem 1rem; border-bottom: 1px solid #e5e5e5; }
-    main { max-width: 860px; margin: 0 auto; padding: 2rem 1rem; }
-    h1, h2, h3 { line-height: 1.25; }
-    .note { background: #fffbe6; border: 1px solid #ffe58f; padding: 1rem; border-radius: 8px; }
-    footer { max-width: 860px; margin: 0 auto; padding: 1rem; font-size: 0.9rem; color: #555; }
-    ul { padding-left: 1.4rem; }
-    .meta p { margin: .25rem 0; }
+    :root{
+      --bg: #0b0c10;
+      --surface: #111216;
+      --card: #16181d;
+      --text: #e7e7ea;
+      --muted: #a9adb7;
+      --border: #21242c;
+      --brand: #e11d2e; /* rojo principal */
+      --brand-600:#c21223;
+      --brand-700:#98101c;
+      --accent:#ff4343;
+      --link:#ff6b6b;
+      --focus:#fca5a5;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+    }
+    @media (prefers-color-scheme: light){
+      :root{
+        --bg:#ffffff;
+        --surface:#f6f7f9;
+        --card:#ffffff;
+        --text:#0f1115;
+        --muted:#4b5563;
+        --border:#e5e7eb;
+        --shadow: 0 10px 24px rgba(0,0,0,.08);
+      }
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;height:100%}
+    body{
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(1200px 600px at 20% -10%, rgba(225,29,46,.20), transparent 50%),
+        radial-gradient(1000px 500px at 120% 0%, rgba(225,29,46,.12), transparent 60%),
+        var(--bg);
+      color:var(--text);
+      line-height:1.6;
+    }
+
+    /* Top bar */
+    .topbar{
+      position: sticky; top:0; z-index:50;
+      backdrop-filter: saturate(140%) blur(8px);
+      background: linear-gradient(90deg, rgba(0,0,0,.55), rgba(0,0,0,.35));
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .topbar-inner{
+      max-width: 980px; margin: 0 auto; padding: .75rem 1rem;
+      display:flex; align-items:center; justify-content:space-between; gap:1rem;
+    }
+    .brand{
+      display:flex; align-items:center; gap:.75rem; text-decoration:none; color:var(--text);
+      font-weight:700; letter-spacing:.3px;
+    }
+    .brand .dot{width:12px;height:12px;border-radius:50%;background:var(--brand);box-shadow:0 0 0 3px rgba(225,29,46,.25)}
+    .print-btn{
+      appearance:none; border:1px solid var(--border); background:transparent; color:var(--text);
+      padding:.5rem .9rem; border-radius:999px; cursor:pointer; font-weight:600;
+    }
+    .print-btn:hover{ border-color:var(--brand); color:white; background:var(--brand); }
+
+    header.hero{
+      background: radial-gradient(600px 220px at 20% 0%, rgba(225,29,46,.20), transparent 60%), linear-gradient(180deg, rgba(225,29,46,.14), transparent 40%);
+      border-bottom:1px solid var(--border);
+    }
+    .hero-inner{max-width:980px; margin:0 auto; padding:2.5rem 1rem 1.5rem}
+    .kicker{color:var(--muted); text-transform:uppercase; letter-spacing:.2em; font-size:.8rem}
+    h1{
+      font-size: clamp(1.8rem, 2.5vw + 1rem, 2.6rem);
+      line-height:1.2; margin:.2rem 0 1rem; font-weight:800;
+      text-shadow: 0 1px 0 rgba(0,0,0,.3);
+    }
+    .meta{
+      display:flex; flex-wrap:wrap; gap:.5rem 1rem; color:var(--muted);
+    }
+    .chip{
+      display:inline-flex; align-items:center; gap:.5rem;
+      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
+      border:1px solid var(--border); padding:.35rem .65rem; border-radius:999px;
+    }
+    .chip .dot{width:8px;height:8px;border-radius:50%;background:var(--brand)}
+
+    main{max-width:980px; margin:0 auto; padding:2rem 1rem; display:grid; grid-template-columns: 1fr; gap:1.25rem}
+    @media (min-width:1024px){
+      main{
+        grid-template-columns: 260px 1fr;
+        align-items:start;
+      }
+    }
+
+    /* TOC */
+    nav.toc{
+      position: sticky; top:64px;
+      background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);
+      padding: 1rem; box-shadow: var(--shadow);
+    }
+    nav.toc h3{margin:.25rem 0 .5rem; font-size:.95rem; color:var(--muted)}
+    nav.toc a{
+      display:block; padding:.35rem .5rem; border-radius:8px; text-decoration:none; color:var(--text);
+      border:1px solid transparent;
+    }
+    nav.toc a:hover{ background:rgba(225,29,46,.08); border-color: rgba(225,29,46,.25)}
+    nav.toc a.active{ background:rgba(225,29,46,.12); border-color: rgba(225,29,46,.45)}
+
+    /* Content */
+    .content{display:grid; gap:1rem}
+    section.card{
+      background: var(--card); border:1px solid var(--border); border-radius: var(--radius);
+      padding:1.25rem 1.1rem; box-shadow: var(--shadow);
+    }
+    section.card h2{
+      margin:.2rem 0 .6rem; line-height:1.3;
+      font-size: clamp(1.2rem, 1.3vw + .8rem, 1.5rem);
+      display:flex; align-items:center; gap:.6rem;
+    }
+    section.card h2::before{
+      content:""; width:14px; height:14px; border-radius:4px;
+      background: linear-gradient(180deg, var(--brand), var(--brand-700));
+      box-shadow: 0 0 0 4px rgba(225,29,46,.18);
+    }
+    p{margin:.35rem 0 .75rem}
+    ul{margin:.35rem 0 .75rem; padding-left:1.1rem}
+    li{margin:.25rem 0}
+    a{color:var(--link); text-decoration:underline}
+    a:hover{color:#fff}
+
+    .note{
+      background: linear-gradient(180deg, rgba(225,29,46,.12), rgba(225,29,46,.06));
+      border:1px dashed rgba(225,29,46,.45);
+      color:var(--text); padding: .9rem; border-radius:12px; margin:.25rem 0 1rem;
+    }
+
+    footer{
+      max-width:980px; margin: 0 auto; padding: 2rem 1rem 3rem; color:var(--muted);
+      border-top:1px solid var(--border);
+    }
+
+    /* Accessibility & misc */
+    :focus-visible{outline: 3px solid var(--focus); outline-offset:2px; border-radius: 6px}
+    .skip{position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;}
+    .skip:focus{position:static; width:auto; height:auto; padding:.5rem; background:var(--brand); color:#fff;}
+
+    @media print{
+      nav.toc, .topbar{display:none}
+      body{background:#fff; color:#000}
+      section.card{box-shadow:none; border-color:#ddd}
+      a{text-decoration:none; color:#000}
+    }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Política de Privacidad de <strong>Transporte G4</strong></h1>
-    <div class="meta">
-      <p><strong>Última actualización:</strong> 10/09/2025</p>
-      <p><strong>Responsable del tratamiento (razón social / desarrollador):</strong> Leonardo Antonio Perez de la Cruz</p>
-      <p><strong>Contacto de privacidad:</strong> <a href="mailto:soporteTG4app@gmail.com">soporteTG4app@gmail.com</a> · <strong>Teléfono:</strong> <a href="tel:+526651133350">+52 665 113 3350</a></p>
+  <a class="skip" href="#contenido">Saltar al contenido</a>
+  <div class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="#top" aria-label="Transporte G4 - Política de Privacidad">
+        <span class="dot"></span><span>Transporte G4 · Privacidad</span>
+      </a>
+      <button class="print-btn" onclick="window.print()">Imprimir</button>
+    </div>
+  </div>
+
+  <header class="hero" id="top">
+    <div class="hero-inner">
+      <div class="kicker">Política de Privacidad</div>
+      <h1>Transporte G4</h1>
+      <div class="meta">
+        <div class="chip"><span class="dot"></span><span><strong>Actualizado:</strong> 10/09/2025</span></div>
+        <div class="chip"><span class="dot"></span><span><strong>Responsable:</strong> Leonardo Antonio Perez de la Cruz</span></div>
+        <div class="chip"><span class="dot"></span><span><strong>Contacto:</strong> <a href="mailto:soporteTG4app@gmail.com">soporteTG4app@gmail.com</a></span></div>
+        <div class="chip"><span class="dot"></span><span><strong>Tel.:</strong> <a href="tel:+526651133350">+52 665 113 3350</a></span></div>
+      </div>
     </div>
   </header>
 
   <main>
+    <nav class="toc" aria-label="Índice">
+      <h3>Contenido</h3>
+      <div id="toc-links"></div>
+    </nav>
 
+    <div class="content" id="contenido">
+      <section class="card" id="alcance">
+        <h2>1. Alcance</h2>
+        <p>Esta política describe cómo <strong>Leonardo Antonio Perez de la Cruz</strong> accede, recopila, utiliza, comparte y protege los datos de los usuarios de la aplicación móvil <strong>Transporte G4</strong>.</p>
+      </section>
 
-    <h2>1. Alcance</h2>
-    <p>Esta política describe cómo Leonardo Antonio Perez de la Cruz accede, recopila, utiliza, comparte y protege los datos de los usuarios de la aplicación móvil <strong>Transporte G4</strong>.</p>
+      <section class="card" id="datos">
+        <h2>2. Datos que recopilamos</h2>
+        <p>Podemos procesar los siguientes tipos de datos, según las funciones utilizadas:</p>
+        <ul>
+          <li><strong>Cuenta y contacto:</strong> nombre, correo electrónico, número de teléfono.</li>
+          <li><strong>Ubicación:</strong> precisa y/o aproximada para mostrar la posición del chofer y calcular rutas en tiempo real (incluido en segundo plano si el usuario habilita esa función).</li>
+          <li><strong>Datos técnicos:</strong> identificadores del dispositivo, sistema operativo, dirección IP, registros de actividad, diagnósticos y rendimiento.</li>
+        </ul>
+      </section>
 
-    <h2>2. Datos que recopilamos</h2>
-    <p>Podemos procesar los siguientes tipos de datos, según las funciones utilizadas:</p>
-    <ul>
-      <li><strong>Cuenta y contacto:</strong> nombre, correo electrónico, número de teléfono.</li>
-      <li><strong>Ubicación:</strong> precisa y/o aproximada para mostrar la posición del chofer y calcular rutas en tiempo real (incluido en segundo plano si el usuario habilita esa función).</li>
-      <li><strong>Datos técnicos:</strong> identificadores del dispositivo, sistema operativo, dirección IP, registros de actividad, diagnósticos y rendimiento.</li>
-    </ul>
+      <section class="card" id="finalidades">
+        <h2>3. Finalidades</h2>
+        <ul>
+          <li>Prestar y operar el servicio de transporte y seguimiento en tiempo real.</li>
+          <li>Atención al cliente, seguridad, prevención de fraude y cumplimiento legal.</li>
+          <li>Analítica y mejora del servicio (estabilidad y rendimiento).</li>
+          <li>Mensajería operativa (notificaciones sobre viajes, cambios de estado, etc.).</li>
+          <li>Publicidad/marketing <em>(solo si aplica y con consentimiento cuando sea necesario)</em>.</li>
+        </ul>
+      </section>
 
-    <h2>3. Finalidades</h2>
-    <ul>
-      <li>Prestar y operar el servicio de transporte y seguimiento en tiempo real.</li>
-      <li>Atención al cliente, seguridad, prevención de fraude y cumplimiento legal.</li>
-      <li>Analítica y mejora del servicio (estabilidad y rendimiento).</li>
-      <li>Mensajería operativa (notificaciones sobre viajes, cambios de estado, etc.).</li>
-      <li>Publicidad/marketing <em>(solo si aplica y con consentimiento cuando sea necesario)</em>.</li>
-    </ul>
+      <section class="card" id="comparticion">
+        <h2>4. Compartición de datos</h2>
+        <p>No vendemos datos personales. Podemos compartir datos con:</p>
+        <ul>
+          <li><strong>Proveedores de servicios</strong> (alojamiento en la nube, analítica, mapas, notificaciones), bajo contratos y medidas de seguridad.</li>
+          <li><strong>Autoridades</strong> cuando la ley lo requiera.</li>
+          <li><strong>Transferencias corporativas</strong> (fusión, adquisición) con aviso previo.</li>
+        </ul>
+      </section>
 
-    <h2>4. Compartición de datos</h2>
-    <p>No vendemos datos personales. Podemos compartir datos con:</p>
-    <ul>
-      <li><strong>Proveedores de servicios</strong> (alojamiento en la nube, analítica, mapas, notificaciones), bajo contratos y medidas de seguridad.</li>
-      <li><strong>Autoridades</strong> cuando la ley lo requiera.</li>
-      <li><strong>Transferencias corporativas</strong> (fusión, adquisición) con aviso previo.</li>
-    </ul>
+      <section class="card" id="permisos">
+        <h2>5. Permisos y divulgaciones dentro de la app</h2>
+        <p>Solicitamos permisos del sistema (como <strong>Ubicación</strong> y <strong>Notificaciones</strong>) en el momento de uso y mostramos avisos claros explicando qué datos se recopilan y para qué se usan. Si recopilamos ubicación en segundo plano, lo indicamos explícitamente y ofrecemos controles para desactivar esa función.</p>
+      </section>
 
-    <h2>5. Permisos y divulgaciones dentro de la app</h2>
-    <p>Solicitamos permisos del sistema (como <strong>Ubicación</strong> y <strong>Notificaciones</strong>) en el momento de uso y mostramos avisos claros explicando qué datos se recopilan y para qué se usan. Si recopilamos ubicación en segundo plano, lo indicamos explícitamente y ofrecemos controles para desactivar esa función.</p>
+      <section class="card" id="seguridad">
+        <h2>6. Seguridad</h2>
+        <p>Aplicamos medidas razonables de seguridad, incluyendo transmisión cifrada (HTTPS) y controles de acceso. Ningún sistema es 100% seguro.</p>
+      </section>
 
-    <h2>6. Seguridad</h2>
-    <p>Aplicamos medidas razonables de seguridad, incluyendo transmisión cifrada (HTTPS) y controles de acceso. Ningún sistema es 100% seguro.</p>
+      <section class="card" id="retencion">
+        <h2>7. Conservación y eliminación</h2>
+        <p>Conservamos los datos únicamente el tiempo necesario para las finalidades descritas o según lo exija la ley. Puedes solicitar la eliminación de tu cuenta y datos contactándonos en <a href="mailto:soporteTG4app@gmail.com">soporteTG4app@gmail.com</a>. Conservaremos información mínima si existe una base legal (p. ej., prevención de fraude u obligaciones fiscales).</p>
+      </section>
 
-    <h2>7. Conservación y eliminación</h2>
-    <p>Conservamos los datos únicamente el tiempo necesario para las finalidades descritas o según lo exija la ley. Puedes solicitar la eliminación de tu cuenta y datos contactándonos en <a href="mailto:soporteTG4app@gmail.com">soporteTG4app@gmail.com</a>. Conservaremos información mínima si existe una base legal (p. ej., prevención de fraude u obligaciones fiscales).</p>
+      <section class="card" id="derechos">
+        <h2>8. Derechos de los usuarios</h2>
+        <p>Según la jurisdicción, los usuarios pueden tener derechos de acceso, rectificación, portabilidad, oposición y limitación del tratamiento. Para ejercerlos, contáctanos en <a href="mailto:soporteTG4app@gmail.com">soporteTG4app@gmail.com</a>.</p>
+      </section>
 
-    <h2>8. Derechos de los usuarios</h2>
-    <p>Según la jurisdicción, los usuarios pueden tener derechos de acceso, rectificación, portabilidad, oposición y limitación del tratamiento. Para ejercerlos, contáctanos en <a href="mailto:soporteTG4app@gmail.com">soporteTG4app@gmail.com</a>.</p>
+      <section class="card" id="menores">
+        <h2>9. Menores</h2>
+        <p>El servicio está dirigido a personas de <strong>18 años o más</strong>. No recopilamos deliberadamente datos de menores.</p>
+      </section>
 
-    <h2>9. Menores</h2>
-    <p>El servicio está dirigido a personas de <strong>18 años o más</strong>. No recopilamos deliberadamente datos de menores.</p>
+      <section class="card" id="transferencias">
+        <h2>10. Transferencias internacionales</h2>
+        <p>Si transferimos datos fuera del país del usuario, lo haremos con garantías adecuadas conforme a la ley aplicable.</p>
+      </section>
 
-    <h2>10. Transferencias internacionales</h2>
-    <p>Si transferimos datos fuera del país del usuario, lo haremos con garantías adecuadas conforme a la ley aplicable.</p>
+      <section class="card" id="cambios">
+        <h2>11. Cambios a esta política</h2>
+        <p>Podemos actualizar esta política. Publicaremos la versión vigente en esta misma URL e indicaremos la fecha de última actualización. Si los cambios son sustanciales, daremos un aviso adicional.</p>
+      </section>
 
-    <h2>11. Cambios a esta política</h2>
-    <p>Podemos actualizar esta política. Publicaremos la versión vigente en esta misma URL e indicaremos la fecha de última actualización. Si los cambios son sustanciales, daremos un aviso adicional.</p>
-
-    <h2>12. Contacto</h2>
-    <p>Para preguntas sobre privacidad, contáctanos en <a href="mailto:soporteTG4app@gmail.com">soporteTG4app@gmail.com</a> o al teléfono <a href="tel:+526651133350">+52 665 113 3350</a>.</p>
+      <section class="card" id="contacto">
+        <h2>12. Contacto</h2>
+        <p>Para preguntas sobre privacidad, contáctanos en <a href="mailto:soporteTG4app@gmail.com">soporteTG4app@gmail.com</a> o al teléfono <a href="tel:+526651133350">+52 665 113 3350</a>.</p>
+      </section>
+    </div>
   </main>
 
   <footer>
     © 2025 Leonardo Antonio Perez de la Cruz. Todos los derechos reservados.
   </footer>
+
+  <script>
+    // Generar TOC dinámico
+    const headings = document.querySelectorAll('.content h2');
+    const toc = document.getElementById('toc-links');
+    headings.forEach(h => {
+      const id = h.parentElement.id;
+      const a = document.createElement('a');
+      a.href = '#' + id;
+      a.textContent = h.textContent;
+      toc.appendChild(a);
+    });
+    // Resaltar el item activo al hacer scroll
+    const links = Array.from(document.querySelectorAll('nav.toc a'));
+    const observer = new IntersectionObserver((entries)=>{
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + entry.target.id));
+        }
+      })
+    }, { rootMargin: '-40% 0px -55% 0px', threshold: [0, 1] });
+    document.querySelectorAll('section.card').forEach(sec => observer.observe(sec));
+  </script>
 </body>
 </html>
+
